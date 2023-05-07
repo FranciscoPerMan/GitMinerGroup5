@@ -1,6 +1,7 @@
 package aiss.gitlabminer.service;
 
 import aiss.gitlabminer.model.Commit;
+import aiss.gitlabminer.model.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +37,37 @@ public class GitLabService {
             String nextPageURI = "https://gitlab.com/api/v4/projects/" + projectId + "/repository/commits/?since=" +
                     since.format(DateTimeFormatter.ISO_DATE_TIME) + "&page=" + page;
             response = restTemplate.exchange(nextPageURI, HttpMethod.GET, null, Commit[].class);
-            // If the list of commits is null, that means there is nothing at that page and the end has been reached.
+            // If the list of commits is empty, that means there is nothing at that page and the end has been reached.
             if (response.getBody() == null) break;
             pageCommits = Arrays.stream(response.getBody()).toList();
             commits.addAll(pageCommits);
             page++;
         }
         return commits;
+    }
+
+    public List<Issue> findAllIssues(String projectId, int sinceDays, int maxPages)
+        throws HttpClientErrorException {
+        List<Issue> issues = new ArrayList<>();
+        LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
+        // First page
+        String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/?created_after=" +
+                since.format(DateTimeFormatter.ISO_DATE_TIME);
+        ResponseEntity<Issue[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Issue[].class);
+        List<Issue> pageIssues = Arrays.stream(response.getBody()).toList();
+        issues.addAll(pageIssues);
+        // 2..n pages
+        int page = 2;
+        while (page <= maxPages) {
+            String nextPageURI = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/?created_after=" +
+                    since.format(DateTimeFormatter.ISO_DATE_TIME) + "&page=" + page;
+            response = restTemplate.exchange(nextPageURI, HttpMethod.GET, null, Issue[].class);
+            // If the list of issues is empty, that means there is nothing at that page and the end has been reached.
+            if (response.getBody() == null) break;
+            pageIssues = Arrays.stream(response.getBody()).toList();
+            issues.addAll(pageIssues);
+            page++;
+        }
+        return issues;
     }
 }

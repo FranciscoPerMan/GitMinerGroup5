@@ -1,6 +1,7 @@
 package aiss.gitlabminer;
 
 import aiss.gitlabminer.model.Commit;
+import aiss.gitlabminer.model.Issue;
 import aiss.gitlabminer.service.GitLabService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,4 +29,15 @@ class GitLabServiceTest {
                 firstCommit.getWebUrl());
     }
 
+    @Test
+    @DisplayName("Get issues")
+    void getIssues() {
+        List<Issue> issues = service.findAllIssues("36189", 30, 2); // F-Droid Client
+        assertTrue(!issues.isEmpty(), "The list of issues is empty");
+        System.out.println(issues);
+        Issue firstIssue = issues.get(0);
+        System.out.println("Latest issue:\nFrom " + firstIssue.getAuthor().getName() +
+                "\nOpened at " + firstIssue.getCreatedAt() + "\nTitle: " + firstIssue.getTitle() +
+                "\nWeb URL: " + firstIssue.getWebUrl() + "\nUpvotes: " + firstIssue.getUpvotes());
+    }
 }
