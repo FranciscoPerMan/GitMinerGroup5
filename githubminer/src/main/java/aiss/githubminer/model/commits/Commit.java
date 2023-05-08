@@ -1,5 +1,5 @@
 
-package aiss.gitlabminer.model.commits;
+package aiss.githubminer.model.commits;
 
 import java.util.LinkedHashMap;
 import java.util.List;
