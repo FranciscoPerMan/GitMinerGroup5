@@ -4,6 +4,9 @@ import aiss.gitlabminer.model.Comment;
 import aiss.gitlabminer.model.Commit;
 import aiss.gitlabminer.model.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,10 @@ import java.util.List;
 public class GitLabService {
     @Autowired
     RestTemplate restTemplate;
+
+    @Value("${gitlab.access_token}")
+    String gitlabToken;
+
 
     public List<Commit> findAllCommits(String projectId, int sinceDays, int maxPages)
             throws HttpClientErrorException {
@@ -73,8 +80,13 @@ public class GitLabService {
     }
 
     public List<Comment> findIssueComments(String projectId, String issueId) {
+        // Endpoint requires authentication
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(gitlabToken);
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
         String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/" + issueId + "/notes";
-        ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Comment[].class);
+        ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, Comment[].class);
+
         return Arrays.stream(response.getBody()).toList();
     }
 }
