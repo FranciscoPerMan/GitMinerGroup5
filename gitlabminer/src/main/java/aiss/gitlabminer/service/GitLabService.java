@@ -1,5 +1,6 @@
 package aiss.gitlabminer.service;
 
+import aiss.gitlabminer.model.Comment;
 import aiss.gitlabminer.model.Commit;
 import aiss.gitlabminer.model.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,11 @@ public class GitLabService {
             page++;
         }
         return issues;
+    }
+
+    public List<Comment> findIssueComments(String projectId, String issueId) {
+        String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/" + issueId + "/notes";
+        ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Comment[].class);
+        return Arrays.stream(response.getBody()).toList();
     }
 }

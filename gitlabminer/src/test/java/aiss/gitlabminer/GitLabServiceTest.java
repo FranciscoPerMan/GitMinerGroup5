@@ -1,5 +1,6 @@
 package aiss.gitlabminer;
 
+import aiss.gitlabminer.model.Comment;
 import aiss.gitlabminer.model.Commit;
 import aiss.gitlabminer.model.Issue;
 import aiss.gitlabminer.service.GitLabService;
@@ -40,4 +41,16 @@ class GitLabServiceTest {
                 "\nOpened at " + firstIssue.getCreatedAt() + "\nTitle: " + firstIssue.getTitle() +
                 "\nWeb URL: " + firstIssue.getWebUrl() + "\nUpvotes: " + firstIssue.getUpvotes());
     }
+
+    @Test
+    @DisplayName("Get comments of an issue")
+    void getComments() {
+        List<Comment> comments = service.findIssueComments("36189", "2592");
+        assertTrue(!comments.isEmpty(), "The list of comments is empty");
+        System.out.println(comments);
+        Comment firstComment = comments.get(0); // By default, comments (notes on the GitLab API) are sorted by created_at.
+        System.out.println("First comment: From " + firstComment.getAuthor().getName() +
+                "\nCreated at " + firstComment.getCreatedAt() + "\nBody: " + firstComment.getBody());
+    }
+    // TODO: Test returns 401 Unauthorized. Access token may be needed.
 }
