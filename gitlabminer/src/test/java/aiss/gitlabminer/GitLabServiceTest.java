@@ -1,9 +1,6 @@
 package aiss.gitlabminer;
 
-import aiss.gitlabminer.model.Comment;
-import aiss.gitlabminer.model.Commit;
-import aiss.gitlabminer.model.Issue;
-import aiss.gitlabminer.model.User;
+import aiss.gitlabminer.model.*;
 import aiss.gitlabminer.service.GitLabService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,15 +47,21 @@ class GitLabServiceTest {
         assertTrue(!comments.isEmpty(), "The list of comments is empty");
         System.out.println(comments);
         Comment firstComment = comments.get(0); // By default, comments (notes on the GitLab API) are sorted by created_at.
-        System.out.println("First comment: From " + firstComment.getAuthor().getName() +
+        System.out.println("Latest comment: From " + firstComment.getAuthor().getName() +
                 "\nCreated at " + firstComment.getCreatedAt() + "\nBody: " + firstComment.getBody());
     }
-    // TODO: Test returns 401 Unauthorized. Access token may be needed.
 
     @Test
     @DisplayName("Get user by their username")
     void getUser() {
         User user = service.findUserByUsername("jjchico");
         System.out.println("Found user " + user.getName() + " (" + user.getUsername() + ")\nWeb URL: " + user.getWebUrl());
+    }
+
+    @Test
+    @DisplayName("Get project by its ID")
+    void getProject() {
+        Project project = service.findProjectById("36189");
+        System.out.println("Found project " + project.getName() + " (ID " + project.getId() + ")\nWeb URL: " + project.getWebUrl());
     }
 }

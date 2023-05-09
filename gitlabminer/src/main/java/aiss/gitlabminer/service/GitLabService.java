@@ -1,9 +1,6 @@
 package aiss.gitlabminer.service;
 
-import aiss.gitlabminer.model.Comment;
-import aiss.gitlabminer.model.Commit;
-import aiss.gitlabminer.model.Issue;
-import aiss.gitlabminer.model.User;
+import aiss.gitlabminer.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -60,7 +57,7 @@ public class GitLabService {
         List<Issue> issues = new ArrayList<>();
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         // First page
-        String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/?created_after=" +
+        String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/?updated_after=" +
                 since.format(DateTimeFormatter.ISO_DATE_TIME);
         ResponseEntity<Issue[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Issue[].class);
         List<Issue> pageIssues = Arrays.stream(response.getBody()).toList();
@@ -92,8 +89,16 @@ public class GitLabService {
     }
 
     public User findUserByUsername(String username) {
-        String uri = "https://gitlab.com/api/v4/users/" + username;
-        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
+        String uri = "https://gitlab.com/api/v4/users?username=" + username;
+        ResponseEntity<User[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, User[].class);
+        return Arrays.stream(response.getBody()).toList().get(0);
+    }
+
+    public Project findProjectById(String projectId) {
+        // Note: without authentication, the GitLab API will return a less detailed description of a project,
+        // although the extra information that would be obtained by authenticating is not needed by GitMiner.
+        String uri = "https://gitlab.com/api/v4/projects/" + projectId;
+        ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, null, Project.class);
         return response.getBody();
     }
 }

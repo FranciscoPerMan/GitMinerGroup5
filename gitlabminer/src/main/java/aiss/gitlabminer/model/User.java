@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "state",
     "id",
+    "username",
     "name",
-    "web_url",
+    "state",
     "avatar_url",
-    "username"
+    "web_url"
 })
 @Generated("jsonschema2pojo")
 public class User {
