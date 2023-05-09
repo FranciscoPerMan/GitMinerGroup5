@@ -3,6 +3,7 @@ package aiss.gitlabminer;
 import aiss.gitlabminer.model.Comment;
 import aiss.gitlabminer.model.Commit;
 import aiss.gitlabminer.model.Issue;
+import aiss.gitlabminer.model.User;
 import aiss.gitlabminer.service.GitLabService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,4 +54,11 @@ class GitLabServiceTest {
                 "\nCreated at " + firstComment.getCreatedAt() + "\nBody: " + firstComment.getBody());
     }
     // TODO: Test returns 401 Unauthorized. Access token may be needed.
+
+    @Test
+    @DisplayName("Get user by their username")
+    void getUser() {
+        User user = service.findUserByUsername("jjchico");
+        System.out.println("Found user " + user.getName() + " (" + user.getUsername() + ")\nWeb URL: " + user.getWebUrl());
+    }
 }

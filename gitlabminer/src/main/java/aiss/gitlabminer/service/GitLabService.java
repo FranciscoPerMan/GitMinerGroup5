@@ -3,6 +3,7 @@ package aiss.gitlabminer.service;
 import aiss.gitlabminer.model.Comment;
 import aiss.gitlabminer.model.Commit;
 import aiss.gitlabminer.model.Issue;
+import aiss.gitlabminer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -88,5 +89,11 @@ public class GitLabService {
         ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, Comment[].class);
 
         return Arrays.stream(response.getBody()).toList();
+    }
+
+    public User findUserByUsername(String username) {
+        String uri = "https://gitlab.com/api/v4/users/" + username;
+        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
+        return response.getBody();
     }
 }
