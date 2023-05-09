@@ -1,6 +1,6 @@
 package aiss.gitlabminer;
 
-import aiss.gitlabminer.model.*;
+import aiss.gitlabminer.model.gitlab.*;
 import aiss.gitlabminer.service.GitLabService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

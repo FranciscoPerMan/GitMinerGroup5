@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/GitMinerGroup5.iml" filepath="$PROJECT_DIR$/.idea/GitMinerGroup5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/githubminer/githubminer.iml" filepath="$PROJECT_DIR$/githubminer/githubminer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gitlabminer/gitlabminer.iml" filepath="$PROJECT_DIR$/gitlabminer/gitlabminer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gitminer/gitminer.iml" filepath="$PROJECT_DIR$/gitminer/gitminer.iml" />
+    </modules>
+  </component>
+</project>
