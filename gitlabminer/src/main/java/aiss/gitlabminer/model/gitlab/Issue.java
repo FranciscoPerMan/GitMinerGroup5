@@ -70,7 +70,7 @@ public class Issue {
     @JsonProperty("updated_at")
     private String updatedAt;
     @JsonProperty("closed_at")
-    private Object closedAt;
+    private String closedAt;
     @JsonProperty("closed_by")
     private Object closedBy;
     @JsonProperty("id")
@@ -211,12 +211,12 @@ public class Issue {
     }
 
     @JsonProperty("closed_at")
-    public Object getClosedAt() {
+    public String getClosedAt() {
         return closedAt;
     }
 
     @JsonProperty("closed_at")
-    public void setClosedAt(Object closedAt) {
+    public void setClosedAt(String closedAt) {
         this.closedAt = closedAt;
     }
 

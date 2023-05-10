@@ -54,10 +54,12 @@ public class GitLabService {
     public List<Issue> findAllIssues(String projectId, int sinceDays, int maxPages)
         throws HttpClientErrorException {
         List<Issue> issues = new ArrayList<>();
+
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         // First page
         String uri = "https://gitlab.com/api/v4/projects/" + projectId + "/issues/?updated_after=" +
                 since.format(DateTimeFormatter.ISO_DATE_TIME);
+        System.out.println(uri);
         ResponseEntity<Issue[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Issue[].class);
         List<Issue> pageIssues = Arrays.stream(response.getBody()).toList();
         issues.addAll(pageIssues);
@@ -100,4 +102,9 @@ public class GitLabService {
         ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, null, Project.class);
         return response.getBody();
     }
+
+
+
+
+
 }
