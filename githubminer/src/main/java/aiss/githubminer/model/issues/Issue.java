@@ -5,45 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "url",
-    "repository_url",
-    "labels_url",
-    "comments_url",
-    "events_url",
-    "html_url",
-    "id",
-    "node_id",
-    "number",
-    "title",
-    "user",
-    "labels",
-    "state",
-    "locked",
-    "assignee",
-    "assignees",
-    "milestone",
-    "comments",
-    "created_at",
-    "updated_at",
-    "closed_at",
-    "author_association",
-    "active_lock_reason",
-    "body",
-    "reactions",
-    "timeline_url",
-    "performed_via_github_app",
-    "state_reason"
-})
-@Generated("jsonschema2pojo")
+import com.fasterxml.jackson.annotation.*;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Issue {
 
     @JsonProperty("url")

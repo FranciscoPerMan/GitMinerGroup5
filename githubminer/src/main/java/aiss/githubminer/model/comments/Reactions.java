@@ -1,13 +1,27 @@
-
-package aiss.githubminer.model.issues;
+package aiss.githubminer.model.comments;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import com.fasterxml.jackson.annotation.*;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "url",
+    "total_count",
+    "laugh",
+    "hooray",
+    "confused",
+    "heart",
+    "rocket",
+    "eyes"
+})
+@Generated("jsonschema2pojo")
 public class Reactions {
 
     @JsonProperty("url")
@@ -26,23 +40,8 @@ public class Reactions {
     private Integer rocket;
     @JsonProperty("eyes")
     private Integer eyes;
-
-    @JsonProperty("-1")
-    private Integer negative;
-    @JsonProperty("+1")
-    private Integer positive;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
-
-    @JsonProperty("+1")
-    public Integer getPositive() { return positive; }
-
-    @JsonProperty("+1")
-    public void setPositive(Integer positive) { this.positive = positive; }
-    @JsonProperty("-1")
-    public Integer getNegative() { return negative; }
-    @JsonProperty("-1")
-    public void setNegative(Integer negative) { this.negative = negative; }
 
     @JsonProperty("url")
     public String getUrl() {
