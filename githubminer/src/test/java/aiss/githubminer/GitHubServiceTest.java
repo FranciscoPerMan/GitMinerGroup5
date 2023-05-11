@@ -2,6 +2,7 @@ package aiss.githubminer;
 
 import aiss.githubminer.model.commits.Commit;
 import aiss.githubminer.model.issues.Issue;
+import aiss.githubminer.model.projects.Project;
 import aiss.githubminer.service.GitHubService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
@@ -31,5 +31,12 @@ public class GitHubServiceTest {
         List<Issue> issues = service.findAllIssues("spring-projects", "spring-framework", 2,2); // F-Droid Client
         assertTrue(!issues.isEmpty(), "The list of issues is empty");
         System.out.println(issues);
+    }
+
+    @Test
+    @DisplayName("Get proyect")
+    void getProject() {
+        Project project = service.findProjectByOwnerAndRepository("spring-projects","Spring-framework");
+        System.out.println(project.toString());
     }
 }
