@@ -11,11 +11,6 @@
         <module name="gitminer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="githubminer" target="17" />
-      <module name="gitlabminer" target="17" />
-      <module name="gitminer" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

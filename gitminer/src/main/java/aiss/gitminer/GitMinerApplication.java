@@ -10,4 +10,5 @@ public class GitMinerApplication {
 		SpringApplication.run(GitMinerApplication.class, args);
 	}
 
+
 }

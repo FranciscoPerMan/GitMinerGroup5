@@ -32,7 +32,7 @@ public class User {
     @JsonProperty("web_url")
     private String webUrl;
     @JsonProperty("avatar_url")
-    private Object avatarUrl;
+    private String avatarUrl;
     @JsonProperty("username")
     private String username;
     @JsonIgnore
@@ -79,12 +79,12 @@ public class User {
     }
 
     @JsonProperty("avatar_url")
-    public Object getAvatarUrl() {
+    public String getAvatarUrl() {
         return avatarUrl;
     }
 
     @JsonProperty("avatar_url")
-    public void setAvatarUrl(Object avatarUrl) {
+    public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
