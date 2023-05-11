@@ -1,6 +1,7 @@
 package aiss.githubminer.service;
 
 import aiss.githubminer.model.issues.Issue;
+import aiss.githubminer.model.projects.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class GitHubService {
         List<Commit> commits = new ArrayList<>();
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         String url ="https://api.github.com/repos/" + owner+ "/" + repository + "/commits?since=" +
-        since.format(DateTimeFormatter.ISO_DATE_TIME);;
+        since.format(DateTimeFormatter.ISO_DATE_TIME);
         ResponseEntity<Commit[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Commit[].class);
         List<Commit> pageCommits = Arrays.stream(response.getBody()).toList(); // TODO: Add exception handling?
         commits.addAll(pageCommits);
@@ -44,7 +45,7 @@ public class GitHubService {
         List<Issue> issues = new ArrayList<>();
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
         String url ="https://api.github.com/repos/" + owner+ "/" + repository + "/commits?since=" +
-                since.format(DateTimeFormatter.ISO_DATE_TIME);;
+                since.format(DateTimeFormatter.ISO_DATE_TIME);
         ResponseEntity<Issue[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Issue[].class);
         List<Issue> pageIssues = Arrays.stream(response.getBody()).toList(); // TODO: Add exception handling?
         issues.addAll(pageIssues);
@@ -60,6 +61,11 @@ public class GitHubService {
             page++;
         }
         return issues;
+    }
+    public Project findProjectByOwnerAndRepository(String owner, String repository) {
+        String uri = "https://api.github.com/repos/" + owner + "/" + repository;
+        ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, null, Project.class);
+        return response.getBody();
     }
 
 }
