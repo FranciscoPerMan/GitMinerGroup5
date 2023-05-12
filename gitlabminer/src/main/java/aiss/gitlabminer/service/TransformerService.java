@@ -109,10 +109,10 @@ public class TransformerService {
     }
 
 
-    public GMProject getCompleteGMProject(String id) {
+    public GMProject getCompleteGMProject(String id, Integer sinceCommits, Integer sinceIssues, Integer maxPages) {
         Project gitlabProject = gitLabService.findProjectById(id);
-        List<Commit> gitlabCommits = gitLabService.findAllCommits(id, 10, 3);
-        List<Issue> gitlabIssues = gitLabService.findAllIssues(id, 10, 3);
+        List<Commit> gitlabCommits = gitLabService.findAllCommits(id, sinceCommits, maxPages);
+        List<Issue> gitlabIssues = gitLabService.findAllIssues(id, sinceIssues, maxPages);
 
         GMProject gitminerProject = transformProject(gitlabProject);
         List<GMCommit> gitminerCommits = transformCommits(gitlabCommits);

@@ -7,8 +7,11 @@ import aiss.gitlabminer.service.TransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.Optional;
+
 @RestController()
-@RequestMapping("/projects")
+@RequestMapping("/gitlab")
 public class ProjectController {
 
 
@@ -25,13 +28,17 @@ public class ProjectController {
         this.transformerService = transformerService;
     }
     @GetMapping("/{id}")
-    public GMProject getProjects(@PathVariable String id) {
-        return transformerService.getCompleteGMProject(id);
+    public GMProject getProjects(@PathVariable String id, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
+                                 @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
+        System.out.println("id: " + id + " sinceCommits: " + sinceCommits + " sinceIssues: " + sinceIssues + " maxPages: " + maxPages);
+        return transformerService.getCompleteGMProject(id, sinceCommits, sinceIssues, maxPages);
     }
 
     @PostMapping("/{id}")
-    public GMProject postProjects(@PathVariable String id) {
-        GMProject transformed =  transformerService.getCompleteGMProject(id);
+    public GMProject postProjects(@PathVariable String id, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
+                                  @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
+
+        GMProject transformed =  transformerService.getCompleteGMProject(id, sinceCommits, sinceIssues, maxPages);
         return gitMinerService.postProject(transformed);
     }
 
