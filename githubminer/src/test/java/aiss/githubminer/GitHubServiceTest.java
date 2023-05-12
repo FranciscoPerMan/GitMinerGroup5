@@ -26,11 +26,13 @@ public class GitHubServiceTest {
         System.out.println(commits);
     }
     @Test
-    @DisplayName("Get issues")
+    @DisplayName("Get issues and get the first one's comments")
     void getIssues() {
         List<Issue> issues = service.findAllIssues("spring-projects", "spring-framework", 2,2); // F-Droid Client
         assertTrue(!issues.isEmpty(), "The list of issues is empty");
         System.out.println(issues);
+        System.out.println(issues.get(0).getNumber());
+        System.out.println(service.findIssueComments("spring-projects","spring-framework",issues.get(0).getNumber()));
     }
 
     @Test

@@ -4,33 +4,10 @@ package aiss.githubminer.model.issues;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "url",
-    "html_url",
-    "labels_url",
-    "id",
-    "node_id",
-    "number",
-    "title",
-    "description",
-    "creator",
-    "open_issues",
-    "closed_issues",
-    "state",
-    "created_at",
-    "updated_at",
-    "due_on",
-    "closed_at"
-})
-@Generated("jsonschema2pojo")
+import com.fasterxml.jackson.annotation.*;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Milestone {
 
     @JsonProperty("url")

@@ -1,5 +1,7 @@
 package aiss.githubminer.service;
 
+import aiss.githubminer.model.comments.Comment;
+import aiss.githubminer.model.comments.User;
 import aiss.githubminer.model.issues.Issue;
 import aiss.githubminer.model.projects.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +46,14 @@ public class GitHubService {
     public List<Issue> findAllIssues(String owner, String repository, Integer sinceDays, Integer maxPages){
         List<Issue> issues = new ArrayList<>();
         LocalDateTime since = LocalDateTime.now().minusDays(sinceDays);
-        String url ="https://api.github.com/repos/" + owner+ "/" + repository + "/commits?since=" +
+        String url ="https://api.github.com/repos/" + owner+ "/" + repository + "/issues?since=" +
                 since.format(DateTimeFormatter.ISO_DATE_TIME);
         ResponseEntity<Issue[]> response = restTemplate.exchange(url, HttpMethod.GET, null, Issue[].class);
-        List<Issue> pageIssues = Arrays.stream(response.getBody()).toList(); // TODO: Add exception handling?
+        List<Issue> pageIssues = Arrays.stream(response.getBody()).toList();
         issues.addAll(pageIssues);
         int page = 2;
         while (page <= maxPages) {
-            String nextPageURI = "https://api.github.com/repos/" + owner+ "/" + repository + "/commits?since=" +
+            String nextPageURI = "https://api.github.com/repos/" + owner+ "/" + repository + "/issues?since=" +
                     since.format(DateTimeFormatter.ISO_DATE_TIME) + "&page=" + page;
             response = restTemplate.exchange(nextPageURI, HttpMethod.GET, null, Issue[].class);
             // If the list of commits is empty, that means there is nothing at that page and the end has been reached.
@@ -66,6 +68,17 @@ public class GitHubService {
         String uri = "https://api.github.com/repos/" + owner + "/" + repository;
         ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, null, Project.class);
         return response.getBody();
+    }
+    public User findUserByUserLogin(String login){
+        String uri = "https://api.github.com/users/" + login;
+        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
+        return response.getBody();
+    }
+    public List<Comment> findIssueComments(String owner, String repository, Integer issueId) {
+        List<Comment> comments=new ArrayList<>();
+        String uri = "https://api.github.com/repos/"+owner+"/"+repository+"/issues/"+issueId+"/comments";
+        ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Comment[].class);
+        return Arrays.stream(response.getBody()).toList();
     }
 
 }
