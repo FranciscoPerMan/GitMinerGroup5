@@ -65,6 +65,7 @@ public class GitHubService {
         return issues;
     }
     public Project findProjectByOwnerAndRepository(String owner, String repository) {
+        System.out.println("owner: "+owner+" repository: "+repository);
         String uri = "https://api.github.com/repos/" + owner + "/" + repository;
         ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, null, Project.class);
         return response.getBody();
@@ -74,9 +75,10 @@ public class GitHubService {
         ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, null, User.class);
         return response.getBody();
     }
-    public List<Comment> findIssueComments(String owner, String repository, Integer issueId) {
+    public List<Comment> findIssueComments(String owner, String repository, String issueNumber) {
         List<Comment> comments=new ArrayList<>();
-        String uri = "https://api.github.com/repos/"+owner+"/"+repository+"/issues/"+issueId+"/comments";
+        String uri = "https://api.github.com/repos/"+owner+"/"+repository+"/issues/"+issueNumber+"/comments";
+        System.out.println("owner: "+owner+" repository: "+repository+" issueNumber: "+issueNumber);
         ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, null, Comment[].class);
         return Arrays.stream(response.getBody()).toList();
     }

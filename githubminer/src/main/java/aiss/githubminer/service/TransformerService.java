@@ -43,7 +43,9 @@ public class TransformerService {
             for (Commit commit:commits){
                 GMCommit GMcommit = new GMCommit();
                 GMcommit.setId(commit.getSha());
-                GMcommit.setTitle(commit.getCommit().getMessage().substring(0,72));
+                // Title is the first 72 characters of the message.
+                // Use min to avoid exception if message is shorter than 72 characters.
+                GMcommit.setTitle(commit.getCommit().getMessage().substring(0,Math.min(commit.getCommit().getMessage().length(), 72)));
                 GMcommit.setMessage(commit.getCommit().getMessage());
                 GMcommit.setAuthorName(commit.getCommit().getAuthor().getName());
                 GMcommit.setAuthorEmail(commit.getCommit().getAuthor().getEmail());
@@ -60,7 +62,7 @@ public class TransformerService {
         List<GMIssue> GMissues= new ArrayList<>();
         for (Issue issue:issues){
             GMIssue GMissue =  new GMIssue();
-            List<Comment> comments = service.findIssueComments(owner,repository,issue.getId());
+            List<Comment> comments = service.findIssueComments(owner,repository,issue.getNumber());
             GMissue.setComments(tranformsIssueComments(comments));
             GMissue.setId(issue.getId().toString());
             GMissue.setRefId(issue.getNumber().toString());
@@ -69,7 +71,9 @@ public class TransformerService {
             GMissue.setState(issue.getState());
             GMissue.setCreatedAt(issue.getCreatedAt());
             GMissue.setUpdatedAt(issue.getUpdatedAt());
-            GMissue.setClosedAt(issue.getClosedAt().toString());
+            if (issue.getClosedAt()!=null){
+                GMissue.setClosedAt(issue.getClosedAt().toString());
+            }
             GMissue.setLabels(issue.getLabels().stream().map(x->x.getName()).collect(Collectors.toList()));
             GMissue.setUpvotes(issue.getReactions().getPositive());
             GMissue.setDownvotes(issue.getReactions().getNegative());
@@ -93,11 +97,10 @@ public class TransformerService {
         Project gitHubProject = service.findProjectByOwnerAndRepository(owner,repository);
         List<Commit> gitHubCommits = service.findAllCommits(owner,repository, sinceCommits, maxPages);
         List<Issue> gitHubIssues = service.findAllIssues(owner,repository, sinceIssues, maxPages);
-
         GMProject gitminerProject = fromGitlabToGitminerModel(gitHubProject);
         List<GMCommit> gitminerCommits = transformCommits(gitHubCommits);
         gitminerProject.setCommits(gitminerCommits);
-        List<GMIssue> gitminerIssues = transformIssues(gitHubIssues,repository,owner);
+        List<GMIssue> gitminerIssues = transformIssues(gitHubIssues,owner,repository);
         gitminerProject.setIssues(gitminerIssues);
 
         return gitminerProject;

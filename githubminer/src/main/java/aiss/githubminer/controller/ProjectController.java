@@ -34,7 +34,6 @@ public class ProjectController {
     @PostMapping("/{owner}/{repository}")
     public GMProject postProjects(@PathVariable String owner,@PathVariable String repository, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
                                   @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
-
         GMProject transformed =  transformerService.getCompleteGMProject(owner,repository, sinceCommits, sinceIssues, maxPages);
         return gitMinerService.postProject(transformed);
     }

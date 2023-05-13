@@ -24,11 +24,11 @@ public class Issue {
     @JsonProperty("html_url")
     private String htmlUrl;
     @JsonProperty("id")
-    private Integer id;
+    private String id;
     @JsonProperty("node_id")
     private String nodeId;
     @JsonProperty("number")
-    private Integer number;
+    private String number;
     @JsonProperty("title")
     private String title;
     @JsonProperty("user")
@@ -131,12 +131,12 @@ public class Issue {
     }
 
     @JsonProperty("id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -151,12 +151,12 @@ public class Issue {
     }
 
     @JsonProperty("number")
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
     @JsonProperty("number")
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
