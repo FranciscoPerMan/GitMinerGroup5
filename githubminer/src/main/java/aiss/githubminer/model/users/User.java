@@ -29,7 +29,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "events_url",
     "received_events_url",
     "type",
-    "site_admin"
+    "site_admin",
+    "name",
+    "company",
+    "blog",
+    "location",
+    "email",
+    "hireable",
+    "bio",
+    "twitter_username",
+    "public_repos",
+    "public_gists",
+    "followers",
+    "following",
+    "created_at",
+    "updated_at"
 })
 @Generated("jsonschema2pojo")
 public class User {
@@ -70,6 +84,34 @@ public class User {
     private String type;
     @JsonProperty("site_admin")
     private Boolean siteAdmin;
+    @JsonProperty("name")
+    private Object name;
+    @JsonProperty("company")
+    private Object company;
+    @JsonProperty("blog")
+    private String blog;
+    @JsonProperty("location")
+    private Object location;
+    @JsonProperty("email")
+    private Object email;
+    @JsonProperty("hireable")
+    private Object hireable;
+    @JsonProperty("bio")
+    private Object bio;
+    @JsonProperty("twitter_username")
+    private Object twitterUsername;
+    @JsonProperty("public_repos")
+    private Integer publicRepos;
+    @JsonProperty("public_gists")
+    private Integer publicGists;
+    @JsonProperty("followers")
+    private Integer followers;
+    @JsonProperty("following")
+    private Integer following;
+    @JsonProperty("created_at")
+    private String createdAt;
+    @JsonProperty("updated_at")
+    private String updatedAt;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -253,6 +295,146 @@ public class User {
         this.siteAdmin = siteAdmin;
     }
 
+    @JsonProperty("name")
+    public Object getName() {
+        return name;
+    }
+
+    @JsonProperty("name")
+    public void setName(Object name) {
+        this.name = name;
+    }
+
+    @JsonProperty("company")
+    public Object getCompany() {
+        return company;
+    }
+
+    @JsonProperty("company")
+    public void setCompany(Object company) {
+        this.company = company;
+    }
+
+    @JsonProperty("blog")
+    public String getBlog() {
+        return blog;
+    }
+
+    @JsonProperty("blog")
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    @JsonProperty("location")
+    public Object getLocation() {
+        return location;
+    }
+
+    @JsonProperty("location")
+    public void setLocation(Object location) {
+        this.location = location;
+    }
+
+    @JsonProperty("email")
+    public Object getEmail() {
+        return email;
+    }
+
+    @JsonProperty("email")
+    public void setEmail(Object email) {
+        this.email = email;
+    }
+
+    @JsonProperty("hireable")
+    public Object getHireable() {
+        return hireable;
+    }
+
+    @JsonProperty("hireable")
+    public void setHireable(Object hireable) {
+        this.hireable = hireable;
+    }
+
+    @JsonProperty("bio")
+    public Object getBio() {
+        return bio;
+    }
+
+    @JsonProperty("bio")
+    public void setBio(Object bio) {
+        this.bio = bio;
+    }
+
+    @JsonProperty("twitter_username")
+    public Object getTwitterUsername() {
+        return twitterUsername;
+    }
+
+    @JsonProperty("twitter_username")
+    public void setTwitterUsername(Object twitterUsername) {
+        this.twitterUsername = twitterUsername;
+    }
+
+    @JsonProperty("public_repos")
+    public Integer getPublicRepos() {
+        return publicRepos;
+    }
+
+    @JsonProperty("public_repos")
+    public void setPublicRepos(Integer publicRepos) {
+        this.publicRepos = publicRepos;
+    }
+
+    @JsonProperty("public_gists")
+    public Integer getPublicGists() {
+        return publicGists;
+    }
+
+    @JsonProperty("public_gists")
+    public void setPublicGists(Integer publicGists) {
+        this.publicGists = publicGists;
+    }
+
+    @JsonProperty("followers")
+    public Integer getFollowers() {
+        return followers;
+    }
+
+    @JsonProperty("followers")
+    public void setFollowers(Integer followers) {
+        this.followers = followers;
+    }
+
+    @JsonProperty("following")
+    public Integer getFollowing() {
+        return following;
+    }
+
+    @JsonProperty("following")
+    public void setFollowing(Integer following) {
+        this.following = following;
+    }
+
+    @JsonProperty("created_at")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    @JsonProperty("created_at")
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @JsonProperty("updated_at")
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @JsonProperty("updated_at")
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -338,6 +520,62 @@ public class User {
         sb.append("siteAdmin");
         sb.append('=');
         sb.append(((this.siteAdmin == null)?"<null>":this.siteAdmin));
+        sb.append(',');
+        sb.append("name");
+        sb.append('=');
+        sb.append(((this.name == null)?"<null>":this.name));
+        sb.append(',');
+        sb.append("company");
+        sb.append('=');
+        sb.append(((this.company == null)?"<null>":this.company));
+        sb.append(',');
+        sb.append("blog");
+        sb.append('=');
+        sb.append(((this.blog == null)?"<null>":this.blog));
+        sb.append(',');
+        sb.append("location");
+        sb.append('=');
+        sb.append(((this.location == null)?"<null>":this.location));
+        sb.append(',');
+        sb.append("email");
+        sb.append('=');
+        sb.append(((this.email == null)?"<null>":this.email));
+        sb.append(',');
+        sb.append("hireable");
+        sb.append('=');
+        sb.append(((this.hireable == null)?"<null>":this.hireable));
+        sb.append(',');
+        sb.append("bio");
+        sb.append('=');
+        sb.append(((this.bio == null)?"<null>":this.bio));
+        sb.append(',');
+        sb.append("twitterUsername");
+        sb.append('=');
+        sb.append(((this.twitterUsername == null)?"<null>":this.twitterUsername));
+        sb.append(',');
+        sb.append("publicRepos");
+        sb.append('=');
+        sb.append(((this.publicRepos == null)?"<null>":this.publicRepos));
+        sb.append(',');
+        sb.append("publicGists");
+        sb.append('=');
+        sb.append(((this.publicGists == null)?"<null>":this.publicGists));
+        sb.append(',');
+        sb.append("followers");
+        sb.append('=');
+        sb.append(((this.followers == null)?"<null>":this.followers));
+        sb.append(',');
+        sb.append("following");
+        sb.append('=');
+        sb.append(((this.following == null)?"<null>":this.following));
+        sb.append(',');
+        sb.append("createdAt");
+        sb.append('=');
+        sb.append(((this.createdAt == null)?"<null>":this.createdAt));
+        sb.append(',');
+        sb.append("updatedAt");
+        sb.append('=');
+        sb.append(((this.updatedAt == null)?"<null>":this.updatedAt));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');
