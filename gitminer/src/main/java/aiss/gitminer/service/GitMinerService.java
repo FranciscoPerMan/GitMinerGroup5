@@ -14,6 +14,8 @@ import aiss.gitminer.repository.IssueRepository;
 import aiss.gitminer.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,19 +46,19 @@ public class GitMinerService {
         return savedProject;
     }
 
-    public List<Project> getProjects() {
-        return projectRepository.findAll();
+    public Page<Project> getProjects(Pageable paging) {
+        return projectRepository.findAll(paging);
     }
 
     public Project getProject(String id) throws ProjectNotFoundException {
         return projectRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
     }
 
-    public List<Commit> getCommits(String email) {
+    public Page<Commit> getCommits(String email, Pageable paging) {
         if (email == null) {
-            return commitRepository.findAll();
+            return commitRepository.findAll(paging);
         }
-        return commitRepository.findByAuthorEmail(email);
+        return commitRepository.findByAuthorEmail(email, paging);
     }
 
     public Commit getCommit(String id) throws CommitNotFoundException{
@@ -65,17 +67,24 @@ public class GitMinerService {
 
     }
 
-    public List<Issue> getIssues(String authorId, String state) {
-        if (authorId == null && state == null) {
-            return issueRepository.findAll();
+    public Page<Issue> getIssues(String authorId, String state, String title, Pageable paging) {
+        if (authorId == null && state == null && title == null) {
+            return issueRepository.findAll(paging);
+        } else if (authorId == null && state == null) {
+            return issueRepository.findByTitleContaining(paging, title);
+        } else if (authorId == null && title == null) {
+            return issueRepository.findByState(paging, state);
+        } else if (state == null && title == null) {
+            return issueRepository.findByAuthorId(paging, authorId);
+        } else if (authorId == null) {
+            return issueRepository.findByStateAndTitleContaining(paging, state, title);
+        } else if (state == null) {
+            return issueRepository.findByAuthorIdAndTitleContaining(paging, authorId, title);
+        } else if (title == null) {
+            return issueRepository.findByAuthorIdAndState(paging, authorId, state);
+        } else {
+            return issueRepository.findByAuthorIdAndStateAndTitleContaining(paging, authorId, state, title);
         }
-        if (authorId == null) {
-            return issueRepository.findByState(state);
-        }
-        if (state == null) {
-            return issueRepository.findByAuthorId(authorId);
-        }
-        return issueRepository.findByAuthorIdAndState(authorId, state);
     }
 
     public Issue getIssue(String id) throws IssueNotFoundException{
@@ -86,11 +95,24 @@ public class GitMinerService {
         Issue issue =  issueRepository.findById(id).orElseThrow(IssueNotFoundException::new);
         return issue.getComments();
     }
-    public List<Comment> getComments() {
-        return commentRepository.findAll();
-    }
 
     public Comment getComment(String id) throws CommentNotFoundException {
         return commentRepository.findById(id).orElseThrow(CommentNotFoundException::new);
+    }
+
+    public Page<Comment> getComments(Pageable paging) {
+        return commentRepository.findAll(paging);
+    }
+
+    public Page<Comment> getCommentsByBody(String body, Pageable paging) {
+        return commentRepository.findByBodyContaining(body, paging);
+    }
+
+    public Page<Commit> getCommitsByTitle(String email, Pageable paging, String title) {
+        return commitRepository.findByAuthorEmailAndTitleContaining(email, paging, title);
+    }
+
+    public Page<Project> getProjectsByName(Pageable paging, String name) {
+        return projectRepository.findByNameContaining(name, paging);
     }
 }
