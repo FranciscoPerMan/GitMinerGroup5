@@ -7,11 +7,13 @@ import aiss.githubminer.model.issues.Issue;
 import aiss.githubminer.model.projects.Project;
 import aiss.githubminer.model.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TransformerService {
     @Autowired
     GitHubService service;
