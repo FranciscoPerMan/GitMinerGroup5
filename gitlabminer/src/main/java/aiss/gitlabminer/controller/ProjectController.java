@@ -14,7 +14,6 @@ import java.util.Optional;
 @RequestMapping("/gitlab")
 public class ProjectController {
 
-
     @Autowired
     private final GitLabService gitLabService;
 
@@ -22,6 +21,7 @@ public class ProjectController {
     private final GitMinerService gitMinerService;
     @Autowired
     private final TransformerService transformerService;
+
     public ProjectController(GitLabService gitLabService, GitMinerService gitMinerService, TransformerService transformerService) {
         this.gitLabService = gitLabService;
         this.gitMinerService = gitMinerService;
@@ -30,14 +30,12 @@ public class ProjectController {
     @GetMapping("/{id}")
     public GMProject getProjects(@PathVariable String id, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
                                  @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
-        System.out.println("id: " + id + " sinceCommits: " + sinceCommits + " sinceIssues: " + sinceIssues + " maxPages: " + maxPages);
         return transformerService.getCompleteGMProject(id, sinceCommits, sinceIssues, maxPages);
     }
 
     @PostMapping("/{id}")
     public GMProject postProjects(@PathVariable String id, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
                                   @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
-
         GMProject transformed =  transformerService.getCompleteGMProject(id, sinceCommits, sinceIssues, maxPages);
         return gitMinerService.postProject(transformed);
     }

@@ -8,8 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GitMinerService {
-    private String gitMinerURI = "http://localhost:8080/api/projects";
-
+    private String gitMinerURI = "http://localhost:8080/gitminer/projects";
     private RestTemplate restTemplate = new RestTemplate();
 
     public GMProject postProject(GMProject gmProject) {

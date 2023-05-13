@@ -24,6 +24,7 @@ public class TransformerService {
 
     private List<GMCommit> transformCommits(List<Commit> gitlabCommits) {
         List<GMCommit> gitminerCommits = new LinkedList<>();
+        // Transform each commit
         for (Commit gitlabCommit : gitlabCommits) {
             GMCommit gitminerCommit = new GMCommit();
             gitminerCommit.setId(gitlabCommit.getId());
@@ -43,6 +44,8 @@ public class TransformerService {
     }
 
     private GMUser transformUser(User gitlabUser){
+        // Transform user
+        // Use of try and catch to prevent an error when the user is null
         try{
             GMUser gitminerUser = new GMUser();
             gitminerUser.setId(gitlabUser.getId().toString());
@@ -50,7 +53,7 @@ public class TransformerService {
             gitminerUser.setUsername(gitlabUser.getUsername());
             gitminerUser.setWebUrl(gitlabUser.getWebUrl());
             gitminerUser.setAvatarUrl(gitlabUser.getAvatarUrl());
-        return gitminerUser;
+            return gitminerUser;
         }catch (Exception e){
             return null;
         }
@@ -58,6 +61,7 @@ public class TransformerService {
 
     private List<GMComment> transformComments(List<Comment> gitlabComments) {
         List<GMComment> gitminerComments = new LinkedList<>();
+        // Transform each comment
         for (Comment gitlabComment : gitlabComments) {
             GMComment gitminerComment = new GMComment();
             gitminerComment.setId(gitlabComment.getId().toString());
@@ -72,14 +76,14 @@ public class TransformerService {
 
 
     private List<GMIssue> transformIssues(List<Issue> gitlabIssues) {
-        System.out.println(gitlabIssues.toString());
         List<GMIssue> gitminerIssues = new LinkedList<>();
+        // Transform each issue
         for (Issue gitlabIssue : gitlabIssues) {
+            // Get comments from gitlab
             List<Comment> gitlabComments = gitLabService.findIssueComments(gitlabIssue.getProjectId().toString(), gitlabIssue.getIid().toString());
+            // Transform issue
             GMUser gitminerAuthor = transformUser(gitlabIssue.getAuthor());
             GMIssue gitminerIssue = new GMIssue();
-            List<User> gitlabAssignees = gitlabIssue.getAssignees();
-
             gitminerIssue.setId(gitlabIssue.getId().toString());
             gitminerIssue.setRefId(gitlabIssue.getIid().toString());
             gitminerIssue.setTitle(gitlabIssue.getTitle());
@@ -94,14 +98,18 @@ public class TransformerService {
             gitminerIssue.setDownvotes(gitlabIssue.getDownvotes());
             gitminerIssue.setWebUrl(gitlabIssue.getWebUrl());
             gitminerIssue.setClosedAt(gitlabIssue.getClosedAt());
+
+            // We assign the first assignee to the issue
+            List<User> gitlabAssignees = gitlabIssue.getAssignees();
             if (gitlabAssignees != null && !gitlabAssignees.isEmpty()) {
-                // GitMiner model has only 1 assignee, gitlab api returns a list that can be of length 0
+                // GitMiner model has only 1 assignee, gitlab api returns a list that can be of length 0.
+                // In such case, assignee will be null
                 GMUser gitminerAssignee = transformUser(gitlabAssignees.get(0));
                 gitminerIssue.setAssignee(gitminerAssignee);
             }
-
             List<GMComment> gitminerComments = transformComments(gitlabComments);
             gitminerIssue.setComments(gitminerComments);
+            // Add issue to the transformed list
             gitminerIssues.add(gitminerIssue);
         }
         return gitminerIssues;

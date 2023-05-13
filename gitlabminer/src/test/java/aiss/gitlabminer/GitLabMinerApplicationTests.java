@@ -8,6 +8,7 @@ class GitLabMinerApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

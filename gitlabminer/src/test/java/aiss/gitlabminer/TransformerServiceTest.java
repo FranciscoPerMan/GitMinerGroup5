@@ -21,8 +21,9 @@ public class TransformerServiceTest {
     TransformerService transformerService;
     @Test
     @DisplayName("Get complete GM project")
+    // The public method getCompleteGMProject() is the only one that is tested because it calls the other private methods.
     void testGetCompleteGMProject(){
-        GMProject gmProject = transformerService.getCompleteGMProject("36189");
+        GMProject gmProject = transformerService.getCompleteGMProject("36189", 100, 100, 10);
         // Test issues
         List<GMIssue> issues = gmProject.getIssues();
         assertTrue(!issues.isEmpty(), "The list of issues is empty");
@@ -35,5 +36,8 @@ public class TransformerServiceTest {
         // Test id
         String id = gmProject.getId();
         assertTrue(id.equals("36189"), "The id is empty");
+        // Test webUrl
+        String webUrl = gmProject.getWebUrl();
+        assertTrue(!webUrl.isEmpty(), "The web url is empty");
     }
 }
