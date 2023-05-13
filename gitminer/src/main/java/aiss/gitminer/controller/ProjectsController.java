@@ -43,10 +43,7 @@ public class ProjectsController {
 
     @GetMapping("/{id}")
     public Project getProject(@PathVariable String id) throws ProjectNotFoundException {
-        Optional<Project> project = gitMinerService.getProject(id);
-        if (!project.isPresent()) {
-            throw new ProjectNotFoundException();
-        }
-        return project.get();
+        Project project = gitMinerService.getProject(id);
+        return project;
     }
 }

@@ -24,11 +24,8 @@ public class CommitsController {
 
     @GetMapping("/{id}")
     public Commit getCommit(@PathVariable String id) throws CommitNotFoundException {
-        Optional<Commit> commit = gitMinerService.getCommit(id);
-        if (!commit.isPresent()) {
-            throw new CommitNotFoundException();
-        }
-        return commit.get();
+        Commit commit = gitMinerService.getCommit(id);
+        return commit;
     }
 
 }
