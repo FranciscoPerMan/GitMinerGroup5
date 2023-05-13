@@ -17,7 +17,9 @@ Launch all 3 services using your preferred method.
 
 ### GitHubMiner
 
-- Github does not require any authentication.
+- Under src/main/resources:
+  - Copy `secrets.properties.template` to `secrets.properties`
+  - Fill in the properties with your GitHub token.
 - Runs on port 8082
 
 ### GitMiner
