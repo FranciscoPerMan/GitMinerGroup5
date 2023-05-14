@@ -1,9 +1,6 @@
 package aiss.gitminer.service;
 
-import aiss.gitminer.exception.CommentNotFoundException;
-import aiss.gitminer.exception.CommitNotFoundException;
-import aiss.gitminer.exception.IssueNotFoundException;
-import aiss.gitminer.exception.ProjectNotFoundException;
+import aiss.gitminer.exception.*;
 import aiss.gitminer.model.Comment;
 import aiss.gitminer.model.Commit;
 import aiss.gitminer.model.Issue;
@@ -35,13 +32,18 @@ public class GitMinerService {
     @Autowired
     CommentRepository commentRepository;
 
-    public Project makeNewProject(Project project)  {
+    public Project makeNewProject(Project project) throws ProjectAlreadyExistsException  {
         Project savedProject = new Project();
         savedProject.setId(project.getId());
         savedProject.setName(project.getName());
         savedProject.setWebUrl(project.getWebUrl());
         savedProject.setIssues(project.getIssues());
         savedProject.setCommits(project.getCommits());
+        // check if exists in database
+        Optional<Project> projectOptional = projectRepository.findById(project.getId());
+        if (projectOptional.isPresent()) {
+            throw new ProjectAlreadyExistsException();
+        }
         projectRepository.save(savedProject);
         return savedProject;
     }

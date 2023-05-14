@@ -6,7 +6,7 @@ Set of microservices that read and store data from different git cloud providers
 
 ## Setup
 
-Launch all 3 services using your preferred method.
+Launch all 3 services using your preferred method(in your IDE or by using `mvn spring-boot:run`)
 
 ### GitLabMiner
 
