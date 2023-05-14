@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import aiss.githubminer.model.users.User;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -23,9 +24,9 @@ public class Commit {
     @JsonProperty("comments_url")
     private String commentsUrl;
     @JsonProperty("author")
-    private Author__1 author;
+    private User author;
     @JsonProperty("committer")
-    private Committer__1 committer;
+    private User committer;
     @JsonProperty("parents")
     private List<Parent> parents;
     @JsonIgnore
@@ -92,22 +93,22 @@ public class Commit {
     }
 
     @JsonProperty("author")
-    public Author__1 getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
     @JsonProperty("author")
-    public void setAuthor(Author__1 author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
     @JsonProperty("committer")
-    public Committer__1 getCommitter() {
+    public User getCommitter() {
         return committer;
     }
 
     @JsonProperty("committer")
-    public void setCommitter(Committer__1 committer) {
+    public void setCommitter(User committer) {
         this.committer = committer;
     }
 

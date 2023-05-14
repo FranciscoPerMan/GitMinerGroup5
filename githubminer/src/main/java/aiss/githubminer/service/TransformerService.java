@@ -18,6 +18,10 @@ public class TransformerService {
     @Autowired
     GitHubService service;
 
+    // Cache for full user information.
+    // Since there will be repeated requests for the same user, we cache the full user information.
+    private List<User> fullUsersInfoCache = new ArrayList<>();
+
     public GMProject fromGitlabToGitminerModel(Project gitHubProject) {
         GMProject gitminerProject = new GMProject();
         gitminerProject.setId(gitHubProject.getId().toString());
@@ -26,17 +30,38 @@ public class TransformerService {
         return gitminerProject;
     }
     private GMUser transformUser(User gitHubUser){
-        try{
+            // Some users may be null, so we return null in that case.
+            if (gitHubUser == null) return null;
+
+            // Sometimes github will return a user object with limited information.
+            // If we have already retrieved the full user information, use that.
+            // Otherwise, retrieve the full user information.
+
+            // java complains about it not being 'final' :(
+            User finalGitHubUser = gitHubUser;
+            if (fullUsersInfoCache.stream().anyMatch(u -> u.getId().equals(finalGitHubUser.getId()))) {
+                // if the user is in the cache, retrieve it from there
+                System.out.println("User cache hit!");
+                gitHubUser = fullUsersInfoCache.stream().filter(u -> u.getId().equals(finalGitHubUser.getId())).findFirst().get();
+            } else {
+                System.out.println("User cache miss!");
+                // if the user is not in the cache, retrieve the full user information
+                gitHubUser = service.findUserByLogin(gitHubUser.getLogin());
+                fullUsersInfoCache.add(gitHubUser);
+            }
+
+            // here, the current gitHubUser object will always have the full user information
             GMUser gitminerUser = new GMUser();
             gitminerUser.setId(gitHubUser.getId().toString());
-            gitminerUser.setName(gitHubUser.getName().toString());
+            // Some users may not have a name
+            if (gitHubUser.getName() != null) {
+                gitminerUser.setName(gitHubUser.getName().toString());
+            }
             gitminerUser.setUsername(gitHubUser.getLogin());
             gitminerUser.setWebUrl(gitHubUser.getUrl());
             gitminerUser.setAvatarUrl(gitHubUser.getAvatarUrl());
             return gitminerUser;
-        }catch (Exception e){
-            return null;
-        }
+
     }
     private List<GMCommit> transformCommits(List<Commit> commits){
         List<GMCommit> GMcommits= new ArrayList<>();
@@ -77,6 +102,9 @@ public class TransformerService {
             GMissue.setLabels(issue.getLabels().stream().map(x->x.getName()).collect(Collectors.toList()));
             GMissue.setUpvotes(issue.getReactions().getPositive());
             GMissue.setDownvotes(issue.getReactions().getNegative());
+            GMissue.setAuthor(transformUser(issue.getUser()));
+            GMissue.setAssignee(transformUser(issue.getAssignee()));
+            GMissue.setWebUrl(issue.getUrl());
             GMissues.add(GMissue);
         }
         return GMissues;
@@ -89,6 +117,7 @@ public class TransformerService {
             GMcomment.setBody(c.getBody());
             GMcomment.setCreatedAt(c.getCreatedAt());
             GMcomment.setUpdatedAt(c.getUpdatedAt());
+            GMcomment.setAuthor(transformUser(c.getUser()));
             GMcomments.add(GMcomment);
         }
         return GMcomments;

@@ -3,15 +3,17 @@ package aiss.githubminer.model.commits;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import aiss.githubminer.model.users.User;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Commit__1 {
 
     @JsonProperty("author")
-    private Author author;
+    private User author;
     @JsonProperty("committer")
-    private Committer committer;
+    private User committer;
     @JsonProperty("message")
     private String message;
     @JsonProperty("tree")
@@ -26,22 +28,22 @@ public class Commit__1 {
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
     @JsonProperty("author")
-    public Author getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
     @JsonProperty("author")
-    public void setAuthor(Author author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
     @JsonProperty("committer")
-    public Committer getCommitter() {
+    public User getCommitter() {
         return committer;
     }
 
     @JsonProperty("committer")
-    public void setCommitter(Committer committer) {
+    public void setCommitter(User committer) {
         this.committer = committer;
     }
 

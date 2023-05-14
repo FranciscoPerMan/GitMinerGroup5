@@ -27,7 +27,7 @@ public class ProjectController {
     @GetMapping("/{owner}/{repository}")
     public GMProject getProjects(@PathVariable String owner,@PathVariable String repository, @RequestParam(defaultValue = "2" ) Integer sinceCommits,
                                  @RequestParam(defaultValue="20") Integer sinceIssues, @RequestParam(defaultValue="2") Integer maxPages){
-        System.out.println("Owner: " + owner+ " Repository: " + repository + " sinceCommits: " + sinceCommits + " sinceIssues: " + sinceIssues + " maxPages: " + maxPages);
+
         return transformerService.getCompleteGMProject(owner,repository, sinceCommits, sinceIssues, maxPages);
     }
 

@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+
+import aiss.githubminer.model.users.User;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -111,7 +113,7 @@ public class Project {
     @JsonProperty("private")
     private Boolean _private;
     @JsonProperty("owner")
-    private Owner owner;
+    private User owner;
     @JsonProperty("html_url")
     private String htmlUrl;
     @JsonProperty("description")
@@ -320,12 +322,12 @@ public class Project {
     }
 
     @JsonProperty("owner")
-    public Owner getOwner() {
+    public User getOwner() {
         return owner;
     }
 
     @JsonProperty("owner")
-    public void setOwner(Owner owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 

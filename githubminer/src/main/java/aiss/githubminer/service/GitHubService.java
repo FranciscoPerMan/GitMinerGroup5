@@ -1,7 +1,7 @@
 package aiss.githubminer.service;
 
 import aiss.githubminer.model.comments.Comment;
-import aiss.githubminer.model.comments.User;
+import aiss.githubminer.model.users.User;
 import aiss.githubminer.model.issues.Issue;
 import aiss.githubminer.model.projects.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,6 @@ public class GitHubService {
         return issues;
     }
     public Project findProjectByOwnerAndRepository(String owner, String repository) {
-        System.out.println("owner: "+owner+" repository: "+repository);
         String uri = "https://api.github.com/repos/" + owner + "/" + repository;
         ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(), Project.class);
         return response.getBody();
@@ -94,9 +93,14 @@ public class GitHubService {
     public List<Comment> findIssueComments(String owner, String repository, String issueNumber) {
         List<Comment> comments=new ArrayList<>();
         String uri = "https://api.github.com/repos/"+owner+"/"+repository+"/issues/"+issueNumber+"/comments";
-        System.out.println("owner: "+owner+" repository: "+repository+" issueNumber: "+issueNumber);
         ResponseEntity<Comment[]> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(), Comment[].class);
         return Arrays.stream(response.getBody()).toList();
+    }
+
+    public User findUserByLogin(String login){
+        String uri = "https://api.github.com/users/" + login;
+        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(), User.class);
+        return response.getBody();
     }
 
 }

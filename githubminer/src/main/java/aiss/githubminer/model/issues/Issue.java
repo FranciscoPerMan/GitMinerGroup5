@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
+import aiss.githubminer.model.users.User;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,9 +41,8 @@ public class Issue {
     @JsonProperty("locked")
     private Boolean locked;
     @JsonProperty("assignee")
-    private Assignee assignee;
-    @JsonProperty("assignees")
-    private List<Assignee__1> assignees;
+    private User assignee;
+
     @JsonProperty("milestone")
     private Milestone milestone;
     @JsonProperty("comments")
@@ -211,24 +211,15 @@ public class Issue {
     }
 
     @JsonProperty("assignee")
-    public Assignee getAssignee() {
+    public User getAssignee() {
         return assignee;
     }
 
     @JsonProperty("assignee")
-    public void setAssignee(Assignee assignee) {
+    public void setAssignee(User assignee) {
         this.assignee = assignee;
     }
 
-    @JsonProperty("assignees")
-    public List<Assignee__1> getAssignees() {
-        return assignees;
-    }
-
-    @JsonProperty("assignees")
-    public void setAssignees(List<Assignee__1> assignees) {
-        this.assignees = assignees;
-    }
 
     @JsonProperty("milestone")
     public Milestone getMilestone() {
@@ -426,7 +417,6 @@ public class Issue {
         sb.append(',');
         sb.append("assignees");
         sb.append('=');
-        sb.append(((this.assignees == null)?"<null>":this.assignees));
         sb.append(',');
         sb.append("milestone");
         sb.append('=');

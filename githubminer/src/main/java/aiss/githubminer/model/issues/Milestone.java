@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
 
+import aiss.githubminer.model.users.User;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -27,7 +28,7 @@ public class Milestone {
     @JsonProperty("description")
     private String description;
     @JsonProperty("creator")
-    private Creator creator;
+    private User creator;
     @JsonProperty("open_issues")
     private Integer openIssues;
     @JsonProperty("closed_issues")
@@ -126,12 +127,12 @@ public class Milestone {
     }
 
     @JsonProperty("creator")
-    public Creator getCreator() {
+    public User getCreator() {
         return creator;
     }
 
     @JsonProperty("creator")
-    public void setCreator(Creator creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 

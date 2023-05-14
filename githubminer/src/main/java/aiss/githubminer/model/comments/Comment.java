@@ -2,9 +2,9 @@ package aiss.githubminer.model.comments;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import aiss.githubminer.model.users.User;
 
 import aiss.githubminer.model.comments.Reactions;
-import aiss.githubminer.model.comments.User;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

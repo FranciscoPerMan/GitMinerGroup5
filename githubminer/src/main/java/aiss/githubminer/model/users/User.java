@@ -1,5 +1,6 @@
 package aiss.githubminer.model.users;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -45,7 +46,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "created_at",
     "updated_at"
 })
-@Generated("jsonschema2pojo")
+
 public class User {
 
     @JsonProperty("login")
@@ -85,7 +86,7 @@ public class User {
     @JsonProperty("site_admin")
     private Boolean siteAdmin;
     @JsonProperty("name")
-    private Object name;
+    private String name;
     @JsonProperty("company")
     private Object company;
     @JsonProperty("blog")
@@ -93,11 +94,14 @@ public class User {
     @JsonProperty("location")
     private Object location;
     @JsonProperty("email")
-    private Object email;
+    private String email;
     @JsonProperty("hireable")
     private Object hireable;
     @JsonProperty("bio")
     private Object bio;
+
+    @JsonProperty("date")
+    private String date;
     @JsonProperty("twitter_username")
     private Object twitterUsername;
     @JsonProperty("public_repos")
@@ -296,12 +300,12 @@ public class User {
     }
 
     @JsonProperty("name")
-    public Object getName() {
+    public String getName() {
         return name;
     }
 
     @JsonProperty("name")
-    public void setName(Object name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -336,12 +340,20 @@ public class User {
     }
 
     @JsonProperty("email")
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
+    @JsonProperty("date")
+    public String getDate() {
+        return date;
+    }
+    @JsonProperty("date")
+    public void setDate(String date) {
+        this.date = date;
+    }
     @JsonProperty("email")
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
