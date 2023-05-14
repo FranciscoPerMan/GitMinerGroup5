@@ -16,7 +16,6 @@ public class ProjectController {
 
     @Autowired
     private final GitLabService gitLabService;
-
     @Autowired
     private final GitMinerService gitMinerService;
     @Autowired

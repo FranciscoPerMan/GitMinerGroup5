@@ -85,11 +85,6 @@ public class GitHubService {
         ResponseEntity<Project> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(), Project.class);
         return response.getBody();
     }
-    public User findUserByUserLogin(String login){
-        String uri = "https://api.github.com/users/" + login;
-        ResponseEntity<User> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(), User.class);
-        return response.getBody();
-    }
     public List<Comment> findIssueComments(String owner, String repository, String issueNumber) {
         List<Comment> comments=new ArrayList<>();
         String uri = "https://api.github.com/repos/"+owner+"/"+repository+"/issues/"+issueNumber+"/comments";

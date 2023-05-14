@@ -26,6 +26,8 @@ class GitLabServiceTest {
         System.out.println("Latest commit:\nFrom " + firstCommit.getCommitterName() + "\nAuthored at " +
                 firstCommit.getCommittedDate() + "\nTitle: " + firstCommit.getTitle() + "\nWeb URL: " +
                 firstCommit.getWebUrl());
+        assertTrue(firstCommit.getTitle() != null, "The title is null");
+
     }
 
     @Test
@@ -38,6 +40,8 @@ class GitLabServiceTest {
         System.out.println("Latest issue:\nFrom " + firstIssue.getAuthor().getName() +
                 "\nOpened at " + firstIssue.getCreatedAt() + "\nTitle: " + firstIssue.getTitle() +
                 "\nWeb URL: " + firstIssue.getWebUrl() + "\nUpvotes: " + firstIssue.getUpvotes());
+        assertTrue(firstIssue.getTitle() != null, "The title is null");
+
     }
 
     @Test
@@ -49,6 +53,7 @@ class GitLabServiceTest {
         Comment firstComment = comments.get(0); // By default, comments (notes on the GitLab API) are sorted by created_at.
         System.out.println("Latest comment: From " + firstComment.getAuthor().getName() +
                 "\nCreated at " + firstComment.getCreatedAt() + "\nBody: " + firstComment.getBody());
+        assertTrue(firstComment.getBody() != null, "The body is null");
     }
 
     @Test
@@ -56,6 +61,7 @@ class GitLabServiceTest {
     void getUser() {
         User user = service.findUserByUsername("jjchico");
         System.out.println("Found user " + user.getName() + " (" + user.getUsername() + ")\nWeb URL: " + user.getWebUrl());
+        assertTrue(user.getName() != null, "The name is null");
     }
 
     @Test
@@ -63,5 +69,6 @@ class GitLabServiceTest {
     void getProject() {
         Project project = service.findProjectById("36189");
         System.out.println("Found project " + project.getName() + " (ID " + project.getId() + ")\nWeb URL: " + project.getWebUrl());
+        assertTrue(project.getName() != null, "The name is null");
     }
 }

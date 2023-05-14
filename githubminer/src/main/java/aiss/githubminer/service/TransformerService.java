@@ -41,10 +41,8 @@ public class TransformerService {
             User finalGitHubUser = gitHubUser;
             if (fullUsersInfoCache.stream().anyMatch(u -> u.getId().equals(finalGitHubUser.getId()))) {
                 // if the user is in the cache, retrieve it from there
-                System.out.println("User cache hit!");
                 gitHubUser = fullUsersInfoCache.stream().filter(u -> u.getId().equals(finalGitHubUser.getId())).findFirst().get();
             } else {
-                System.out.println("User cache miss!");
                 // if the user is not in the cache, retrieve the full user information
                 gitHubUser = service.findUserByLogin(gitHubUser.getLogin());
                 fullUsersInfoCache.add(gitHubUser);

@@ -7,10 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Extra tests",
-			"item": []
-		},
-		{
 			"name": "Create project",
 			"event": [
 				{

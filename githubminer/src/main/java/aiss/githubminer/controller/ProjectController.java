@@ -14,11 +14,11 @@ public class ProjectController {
 
     @Autowired
     private final GitHubService gitHubService;
-
     @Autowired
     private final GitMiner gitMinerService;
     @Autowired
     private final TransformerService transformerService;
+
     public ProjectController(GitHubService gitHubService, GitMiner gitMinerService, TransformerService transformerService) {
         this.gitHubService = gitHubService;
         this.gitMinerService = gitMinerService;

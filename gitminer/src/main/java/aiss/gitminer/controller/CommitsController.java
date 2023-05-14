@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/gitminer/commits") // TODO: Change
+@RequestMapping("/gitminer/commits")
 public class CommitsController {
     @Autowired
     GitMinerService gitMinerService;
