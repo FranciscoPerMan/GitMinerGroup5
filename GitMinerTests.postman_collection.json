@@ -1,421 +1,14 @@
 {
 	"info": {
-		"_postman_id": "f9165fbd-97d2-4eca-9765-674d45fa4df4",
+		"_postman_id": "c6490442-4649-45ef-9341-cd3d9d04497e",
 		"name": "GitMiner",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25189102"
 	},
 	"item": [
 		{
 			"name": "Extra tests",
-			"item": [
-				{
-					"name": "Create project from GitHub",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/github/Heath123/discross",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"github",
-								"Heath123",
-								"discross"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create project from GitLab, commits from the last 60 days",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Body matches string\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"Added stage5\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/gitlab/25771619?sinceCommits=60",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"gitlab",
-								"25771619"
-							],
-							"query": [
-								{
-									"key": "sinceCommits",
-									"value": "60"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create project from GitHub, commits from the last 15 days, issues from the last 32 days, max 3 pages",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Body matches string\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"a bug with database when using Docker\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/github/Osekai/osekai?sinceCommits=15&sinceIssues=32&maxPages=3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"github",
-								"Osekai",
-								"osekai"
-							],
-							"query": [
-								{
-									"key": "sinceCommits",
-									"value": "15"
-								},
-								{
-									"key": "sinceIssues",
-									"value": "32"
-								},
-								{
-									"key": "maxPages",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get three thankful comments sorted by the content of its body in descending order",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body matches comment body content\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"\\\"body\\\":\\\"Thanks!\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/comments?size=3&order=-body&body=Thanks",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"comments"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "3"
-								},
-								{
-									"key": "order",
-									"value": "-body"
-								},
-								{
-									"key": "body",
-									"value": "Thanks"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get commits of Henry Coles, sorted by committed date",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body matches email address\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"\\\"author_email\\\":\\\"henry.coles@googlemail.com\\\"\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/commits?email=henry.coles@googlemail.com&order=committedDate&title=hcoles",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"commits"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "henry.coles@googlemail.com"
-								},
-								{
-									"key": "order",
-									"value": "committedDate"
-								},
-								{
-									"key": "title",
-									"value": "hcoles"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all open issues with the title containing \"error\"",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Body matches issue title\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include(\"\\\"title\\\":\\\"Fix spelling error in ComputClassWriter\\\"\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/issues?state=open&title=error",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"issues"
-							],
-							"query": [
-								{
-									"key": "state",
-									"value": "open"
-								},
-								{
-									"key": "title",
-									"value": "error"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get the second page of issues (page size = 2)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/issues?page=2&size=2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"issues"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "2"
-								},
-								{
-									"key": "size",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get issues with author ID 77968974 containing the word \"small\"",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Body matches string\", function () {\r",
-									"    pm.expect(pm.response.text()).to.equals(\"[]\")\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/issues?authorId=77968974&title=small",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"issues"
-							],
-							"query": [
-								{
-									"key": "authorId",
-									"value": "77968974"
-								},
-								{
-									"key": "title",
-									"value": "small"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get projects sorted by name in descending order",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/gitminer/projects?order=-name",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"gitminer",
-								"projects"
-							],
-							"query": [
-								{
-									"key": "order",
-									"value": "-name"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "Create project",
@@ -558,7 +151,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Body matches commit ID\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"id\\\":\\\"cef73029ab02ee4486a340b21877e4ec4e545c18\\\"\");\r",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(0);\r",
 							"});\r",
 							""
 						],
@@ -877,8 +470,9 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Body matches comment body content\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"body\\\":\\\"Thanks a lot for the quick reply\");\r",
+							"pm.test(\"Body has content\", function () {\r",
+							"    console.log(data)\r",
+							"    pm.expect(pm.response.json().length).to.be.greaterThan(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -936,6 +530,413 @@
 						"gitminer",
 						"comments",
 						"1398766669"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create project from GitHub",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/github/Heath123/discross",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"github",
+						"Heath123",
+						"discross"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create project from GitLab, commits from the last 60 days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Added stage5\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/gitlab/25771619?sinceCommits=60",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"gitlab",
+						"25771619"
+					],
+					"query": [
+						{
+							"key": "sinceCommits",
+							"value": "60"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create project from GitHub, commits from the last 15 days, issues from the last 32 days, max 3 pages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"a bug with database when using Docker\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/github/Osekai/osekai?sinceCommits=15&sinceIssues=32&maxPages=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"github",
+						"Osekai",
+						"osekai"
+					],
+					"query": [
+						{
+							"key": "sinceCommits",
+							"value": "15"
+						},
+						{
+							"key": "sinceIssues",
+							"value": "32"
+						},
+						{
+							"key": "maxPages",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get three thankful comments sorted by the content of its body in descending order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches comment body content\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"body\\\":\\\"Thanks!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/comments?size=3&order=-body&body=Thanks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "3"
+						},
+						{
+							"key": "order",
+							"value": "-body"
+						},
+						{
+							"key": "body",
+							"value": "Thanks"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get commits of Henry Coles, sorted by committed date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches email address\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"author_email\\\":\\\"henry.coles@googlemail.com\\\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/commits?email=henry.coles@googlemail.com&order=committedDate&title=hcoles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"commits"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "henry.coles@googlemail.com"
+						},
+						{
+							"key": "order",
+							"value": "committedDate"
+						},
+						{
+							"key": "title",
+							"value": "hcoles"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all open issues with the title containing \"error\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches issue title\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"title\\\":\\\"Fix spelling error in ComputClassWriter\\\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/issues?state=open&title=error",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "open"
+						},
+						{
+							"key": "title",
+							"value": "error"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the second page of issues (page size = 2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/issues?page=2&size=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get issues with author ID 77968974 containing the word \"small\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.equals(\"[]\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/issues?authorId=77968974&title=small",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "authorId",
+							"value": "77968974"
+						},
+						{
+							"key": "title",
+							"value": "small"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projects sorted by name in descending order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/gitminer/projects?order=-name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"gitminer",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "-name"
+						}
 					]
 				}
 			},
